@@ -20,6 +20,7 @@ cask "slack"
 cask "sourcetree"
 cask "spotify"
 cask "vlc"
+cask "kindle"
 
 # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
 cask "qlcolorcode"

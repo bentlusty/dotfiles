@@ -13,7 +13,7 @@ else
 fi
 
 source $DOTFILES_DIR/.functions
-source $DOTFILES_DIR/.aliases
+
 unset READLINK CURRENT_SCRIPT SCRIPT_PATH DOTFILES_DIR
 # OLD
 #

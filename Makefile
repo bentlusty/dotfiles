@@ -11,7 +11,7 @@ all: $(OS)
 
 macos: sudo core-macos packages link
 
-core-macos: brew zsh git npm python
+core-macos: brew zsh git npm
 
 packages: brew-packages cask-apps node-packages
 
@@ -23,6 +23,9 @@ link: stow-macos
 	stow -t $(HOME) runcom
 	stow -t $(XDG_CONFIG_HOME) config
 
+unlink: stow-macos
+	stow --delete -t $(HOME) runcom
+	stow --delete -t $(XDG_CONFIG_HOME) config
 
 brew-packages: brew
 	brew bundle --file=$(DOTFILES_DIR)/install/Brewfile
@@ -44,16 +47,13 @@ brew:
 
 zsh: ZSH=$(which zsh)
 zsh: brew
-	brew install zsh && \
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" \
+	is-executable zsh || brew install zsh && \
+	is-executable omz || sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" \
 	upgrade_oh_my_zsh \
-	sudo chsh -s $(ZSH); \
+	sudo chsh -s $(ZSH);
 
 git: brew
-	brew install git git-extras
+	is-executable git || brew install git
 
-npm:
-	if ! [ -d $(NVM_DIR)/.git ]; then git clone https://github.com/creationix/nvm.git $(NVM_DIR); fi
-	. $(NVM_DIR)/nvm.sh; nvm install --lts
-python:
-	brew upgrade python
+npm: brew
+	is-executable node || brew install node
