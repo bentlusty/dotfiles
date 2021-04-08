@@ -5,12 +5,14 @@ CURRENT_SCRIPT=$BASH_SOURCE
 if [[ -n $CURRENT_SCRIPT && -x "$READLINK" ]]; then
   SCRIPT_PATH=$($READLINK -f "$CURRENT_SCRIPT")
   DOTFILES_DIR=$(dirname "$(dirname "$SCRIPT_PATH")")
-elif [ -d "$HOME/.dotfiles" ]; then
+elif [ -d "$HOME/dotfiles" ]; then
   DOTFILES_DIR="$HOME/dotfiles"
 else
   echo "Unable to find dotfiles, exiting."
   return
 fi
+
+plugins = (z git zsh-autosuggestions)
 
 source $DOTFILES_DIR/.functions
 source $DOTFILES_DIR/.aliases
