@@ -23,4 +23,4 @@ cask "quicklook-json"
 cask "qlimagesize"
 cask "suspicious-package"
 cask "qlvideo"
-
+cask "github"

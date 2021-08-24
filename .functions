@@ -23,3 +23,12 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
       man "$@"
 }
+
+ec2claims() {
+  echo '===================='
+  echo 'Claims Instances:'
+  echo '===================='
+  aws --region us-east-1 ec2 describe-instances --filters 'Name=tag:Name,Values=prod-claims-*' --output text --query 'Reservations[].Instances[].[ [Tags[?Key==`Name`].Value][0][0],LaunchTime,PrivateIpAddress,InstanceId ]' | sort -n -k 2
+}
+
+goz() { ssh -F ~/.ssh/gozer ben.tlusty@$1 }
