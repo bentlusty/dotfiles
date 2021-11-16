@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-plugins=(git npm node brew osx z)
+plugins=(git npm node brew macos z)
 export ZSH="/Users/ben_tlutsy/.oh-my-zsh"
 DOTFILES_DIR="$HOME/dotfiles"
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -20,3 +20,17 @@ source $HOME/.forterrc
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+gozer () {
+  ssh -F /Users/ben_tlutsy/.ssh/gozer $1
+}
+ec2instances () {
+  readonly service=${1:?"The service name must be provided"}
+  echo '========================'
+  echo ${service} 'Instances:'
+  echo '========================'
+  filter='Name=tag:Name,Values=prod-'
+  filter+="${service}"
+  filter+='-*'
+  aws --region us-east-1 ec2 describe-instances --filters ${filter} --output text --query 'Reservations[].Instances[].[ [Tags[?Key==`Name`].Value][0][0],LaunchTime,PrivateIpAddress,InstanceId ]' | sort -n -k 2
+}
