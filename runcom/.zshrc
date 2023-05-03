@@ -34,3 +34,10 @@ ec2instances () {
   filter+='-*'
   aws --region us-east-1 ec2 describe-instances --filters ${filter} --output text --query 'Reservations[].Instances[].[ [Tags[?Key==`Name`].Value][0][0],LaunchTime,PrivateIpAddress,InstanceId ]' | sort -n -k 2
 }
+alias lzd='lazydocker'
+
+source /Users/ben_tlutsy/.forterrc
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
