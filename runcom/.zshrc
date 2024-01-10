@@ -41,3 +41,8 @@ source /Users/ben_tlutsy/.forterrc
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# fnm
+export PATH="/Users/ben_tlutsy/Library/Application Support/fnm:$PATH"
+eval "`fnm env`"
+eval "$(fnm env --use-on-cd)"
